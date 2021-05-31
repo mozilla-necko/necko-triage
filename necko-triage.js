@@ -161,25 +161,6 @@ NeckoTriage.prototype.availableTables = {
         "extra_columns": [],
         "default_sort": "severity"
     },
-    "p2-unassigned": {
-        "is_user": false,
-        "title": "Unassigned P2 bugs",
-        "query": {
-            "j_top": "OR",
-            "f1": "assigned_to",
-            "o1": "isempty",
-            "f2": "assigned_to",
-            "o2": "equals",
-            "v2": "nobody@mozilla.org",
-            "product": "Core",
-            "query_format": "advanced",
-            "component": NeckoTriage.prototype.components,
-            "priority": "P2",
-            "resolution": "---"
-        },
-        "extra_columns": [],
-        "default_sort": "severity"
-    },
     "stalled": {
         "is_user": false,
         "title": "Stalled Bugs",
@@ -195,6 +176,31 @@ NeckoTriage.prototype.availableTables = {
         "default_sort": "severity"
     }
 };
+NeckoTriage.prototype.add_more_tables = function () {
+    for (comp in this.components) {
+        let name = "p2-unassigned-" + comp;
+        let title = "Unassigned P2 bugs - " + this.components[comp];
+        this.availableTables[name] =  {
+            "is_user": false,
+            "title": title,
+            "query": {
+                "j_top": "OR",
+                "f1": "assigned_to",
+                "o1": "isempty",
+                "f2": "assigned_to",
+                "o2": "equals",
+                "v2": "nobody@mozilla.org",
+                "product": "Core",
+                "query_format": "advanced",
+                "component": [this.components[comp]],
+                "priority": "P2",
+                "resolution": "---"
+            },
+            "extra_columns": [],
+            "default_sort": "severity",
+        };
+    }
+};
 NeckoTriage.prototype.init = function () {
     // Make sure we display the proper version info
     $("#necko-triage-version").text(this.version);
@@ -208,6 +214,7 @@ NeckoTriage.prototype.init = function () {
 
     this.loadBugzillaMetadata();
 
+    this.add_more_tables();
     // Now load all the tables
     let self = this;
     $.each(this.availableTables, function (k, v) {
