@@ -18,9 +18,9 @@ Bugzilla
 
 Priorities
 - P1 bugs (Blocker: get someone assigned ASAP: let all necko folks know (by email or slack) whenever we have a new P1 bug)
-- P2 bugs (Active--we intend to work on these now or this quarter)
-- P3 bugs (backlog). P3 usually means no one will work on it, so we need to be careful
-  - One exception is that we can mark a bug as P3 and also make it block another meta bug.
+- P2 bugs (Active: we intend to work on these now or this quarter)
+- P3 bugs (Backlog: P3 usually means no one will work on it in the near future, so we need to be careful)
+  - One exception is if we can mark a bug as P3 and also make it block another meta bug, such bugs may be resolved during a project or a focused cleanup, e.g. working on reducing fetch bugs.
 - There is no P4--don't use it
   - This is used by bots.
 - P5 bugs (would take)
@@ -33,11 +33,11 @@ Principles
 
 Mark as triaged
 - Set [necko-triaged] in the whiteboard for bugs that have been triaged.
-- If you know this bug belongs to another meta bug (e.g., QUIC, DoH, etc), remember to set it.
+- If you know this bug belongs to a certain feature (e.g., QUIC, DoH, etc), remember to make it block the corresponding meta bug(s).
 - Set Priority and Severity:
-  - Severity only needs to be set when the bug type is `defect`. For other types, set to "N/A"
+  - Severity only needs to be set when the bug type is `defect`. For other types, set the severity to "N/A"
 - More details
-  - If it's an urgent bug: Set it to P1 and ni? the owner or the manager to find an assignee.
+  - If it's an urgent bug: Set it to P1 and ni? the owner of the feature or the manager to find an assignee.
   - If you think it's important and needs to be fixed soon, set [necko-priority-review] in the whiteboard.
   - If you already know the root cause of the bug and know how to fix it, set [necko-priority-review] and leave a comment about how to fix it. Someone will pick it up and fix it soon.
   - If it's a security bug, it's usually worth setting [necko-priority-review] and P2.
