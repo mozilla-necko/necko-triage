@@ -12,8 +12,23 @@ function SortBySeverity(a, b) {
         "trivial",
         "enhancement"
     ];
+    const NewSeverityMap = [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "--",
+        "N/A",
+    ];
     let aSev = SeverityMap.indexOf(a["severity"]);
+    if (aSev == -1) {
+        aSev = NewSeverityMap.indexOf(a["severity"]);
+    }
     let bSev = SeverityMap.indexOf(b["severity"]);
+    if (bSev == -1) {
+        bSev = NewSeverityMap.indexOf(b["severity"]);
+    }
 
     return aSev - bSev;
 }
@@ -140,4 +155,10 @@ function GetFailureCount(datarow) {
 
 function SortFailures(a, b) {
     return b["failure_count"] - a["failure_count"];
+}
+
+function SortPriority(a, b) {
+    let priorityA = a["priority"] === "--" ? 1 : parseInt(a["priority"].slice(1));
+    let priorityB = b["priority"] === "--" ? 1 : parseInt(b["priority"].slice(1));
+    return priorityA > priorityB;
 }

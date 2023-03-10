@@ -24,6 +24,7 @@ BugTable.sorters = {
     "severity": SortBySeverity,
     "id": SortByID,
     "failure_count": SortFailures,
+    "priority": SortPriority,
 };
 BugTable.prototype.id = "";
 BugTable.prototype.title = "";
