@@ -92,6 +92,19 @@ NeckoTriage.prototype.availableTables = {
         "extra_columns": ["priority"],
         "default_sort": "priority"
     },
+    "reopened" : {
+        "is_user": false,
+        "title": "Reopened bugs",
+        "query": {
+            "resolution": "---",
+            "bug_status": "REOPENED",
+            "product": "Core",
+            "component": NeckoTriage.prototype.components,
+            "query_format": "advanced",
+        },
+        "extra_columns": ["priority"],
+        "default_sort": "priority"
+    },
     "priority-queue": {
         "is_user": false,
         "title": "Necko Priority Queue",
