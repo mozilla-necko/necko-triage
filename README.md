@@ -73,8 +73,10 @@ Priorities
 - There is no P4--don't use it
 - P5 bugs (would take)
 
-Principles
+Principles/Rules of Thumb
 - P1 bugs MUST have a person assigned
+- Sec-highs are generally at least S2s, even with low crash frequency
+- S2s should be confirmed as real bugs before being labelled as such
 - Non-necko people can be assigned to necko bugs just fine
 - Bugs filed by wpt-bot should be marked triaged as P5. If something is needed there, someone can ni? one of us.
 
