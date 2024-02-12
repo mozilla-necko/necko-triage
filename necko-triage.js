@@ -10,9 +10,9 @@ NeckoTriage.prototype.components = [
     "Networking: DNS",
     "Networking: Domain Lists",
     "Networking: File",
-    "Networking: FTP",
     "Networking: HTTP",
     "Networking: JAR",
+    "Networking: Proxy",
     "Networking: WebSockets",
     "DOM: Networking"
 ];
