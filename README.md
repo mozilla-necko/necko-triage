@@ -15,7 +15,7 @@ In general, we want to:
 
 There are two locations we watch for incoming bugs:
 * [Triage Helper](https://mozilla-necko.github.io/necko-triage/)
-* [Triage Center](https://mozilla.github.io/triage-center/?component=Core%3ANetworking&component=Core%3ANetworking%3A+Cache&component=Core%3ANetworking%3A+Cookies&component=Core%3ANetworking%3A+DNS&component=Core%3ANetworking%3A+Domain+Lists&component=Core%3ANetworking%3A+Proxy&component=Core%3ANetworking%3A+File&component=Core%3ANetworking%3A+HTTP&component=Core%3ANetworking%3A+JAR&component=Core%3ANetworking%3A+WebSockets)
+* [Triage Center](https://mozilla.github.io/triage-center/?component=Core%3ANetworking&component=Core%3ANetworking%3A+Cache&component=Core%3ANetworking%3A+Cookies&component=Core%3ANetworking%3A+DNS&component=Core%3ANetworking%3A+Proxy&component=Core%3ANetworking%3A+File&component=Core%3ANetworking%3A+HTTP&component=Core%3ANetworking%3A+JAR&component=Core%3ANetworking%3A+WebSockets)
 
 We use [Bugzilla](https://bugzilla.mozilla.org) to edit the bugs.
 
