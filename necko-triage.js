@@ -8,7 +8,6 @@ NeckoTriage.prototype.components = [
     "Networking: Cache",
     "Networking: Cookies",
     "Networking: DNS",
-    "Networking: Domain Lists",
     "Networking: File",
     "Networking: HTTP",
     "Networking: JAR",
