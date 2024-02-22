@@ -69,19 +69,23 @@ function SortByNI(a, b) {
     return SortBySeverity(a, b);
 }
 
+function ToRelativeDate(time) {
+    if ($.type(time) == "string") {
+        let relativeTime = moment(time).fromNow();
+        let span = $("<span />", {title: time, text: relativeTime});
+        span.tooltip();
+        time = span;
+    } else {
+        time = "unknown";
+    }
+
+    return time;
+}
+
 function GetNI(dataRow) {
     let lastNI = GetNIHelper(dataRow);
 
-    if ($.type(lastNI) == "string") {
-        let relativeLastNI = moment(lastNI).fromNow();
-        let span = $("<span />", {title: lastNI, text: relativeLastNI});
-        span.tooltip();
-        lastNI = span;
-    } else {
-        lastNI = "unknown";
-    }
-
-    return lastNI;
+    return ToRelativeDate(lastNI);
 }
 
 function MakeSelect(name, options, selected, valueGetter) {
@@ -161,4 +165,39 @@ function SortPriority(a, b) {
     let priorityA = a["priority"] === "--" ? 1 : parseInt(a["priority"].slice(1));
     let priorityB = b["priority"] === "--" ? 1 : parseInt(b["priority"].slice(1));
     return priorityA > priorityB;
+}
+
+function SortByTime(a, b) {
+    let aDate = new Date(a);
+    let bDate = new Date(b);
+
+    if (aDate < bDate) {
+        return -1;
+    }
+
+    if (bDate < aDate) {
+        return 1;
+    }
+
+    return 0;
+}
+
+function GetQueueTimeHelper(datarow, flag) {
+    let addedTime = datarow[flag];
+    if (addedTime != "unknown") {
+        return addedTime;
+    }
+
+    return datarow["creation_time"];
+}
+
+function GetQueueTimeWithFlag(datarow, flag) {
+    let addedTime = GetQueueTimeHelper(datarow, flag);
+    return ToRelativeDate(addedTime);
+}
+
+function SortByQueueTimeWithFlag(a, b, flag) {
+    let aTime = GetQueueTimeHelper(a, flag);
+    let bTime = GetQueueTimeHelper(b, flag);
+    return SortByTime(aTime, bTime);
 }
