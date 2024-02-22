@@ -193,7 +193,7 @@ NeckoTriage.prototype.availableTables = {
             "o1": "substring",
             "v1": "[necko-priority-queue]",
         },
-        "extra_columns": ["priority"],
+        "extra_columns": ["priority", "priority_queue_time"],
         "default_sort": "priority"
     },
     "next-priority": {
@@ -208,7 +208,7 @@ NeckoTriage.prototype.availableTables = {
             "o1": "substring",
             "v1": "[necko-priority-next]",
         },
-        "extra_columns": ["priority"],
+        "extra_columns": ["priority", "priority_next_queue_time"],
         "default_sort": "priority"
     },
     "priority-new": {
@@ -237,7 +237,7 @@ NeckoTriage.prototype.availableTables = {
             "o1": "substring",
             "v1": "[necko-priority-review]",
         },
-        "extra_columns": [],
+        "extra_columns": ["priority_review_queue_time"],
     },
     "monitoring": {
         "is_user": false,
@@ -251,7 +251,7 @@ NeckoTriage.prototype.availableTables = {
             "o1": "substring",
             "v1": "[necko-monitor]",
         },
-        "extra_columns": ["priority"],
+        "extra_columns": ["priority", "monitor_queue_time"],
         "default_sort": "priority"
     },
     "untriaged-ni": {

@@ -12,12 +12,20 @@ BugTable.formatters = {
     "alias": GetAlias,
     "priority": GetPriority,
     "failure_count": GetFailureCount,
+    "priority_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-queue"),
+    "priority_next_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-next"),
+    "priority_review_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-review"),
+    "monitor_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-monitor"),
 };
 BugTable.columnTitles = {
     "ni-date": "Last ni?",
     "alias": "Alias",
     "priority": "Priority",
     "failure_count": "Failure Count",
+    "priority_queue_time": "Priority Queue Time",
+    "priority_next_queue_time": "Priority Next Queue Time",
+    "priority_review_queue_time": "Priority Review Queue Time",
+    "monitor_queue_time": "Monitor Queue Time",
 };
 BugTable.sorters = {
     "ni-date": SortByNI,
@@ -25,6 +33,10 @@ BugTable.sorters = {
     "id": SortByID,
     "failure_count": SortFailures,
     "priority": SortPriority,
+    "priority_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-queue"),
+    "priority_next_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-next"),
+    "priority_review_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-review"),
+    "monitor_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-monitor"),
 };
 BugTable.prototype.id = "";
 BugTable.prototype.title = "";
@@ -234,6 +246,54 @@ BugTable.prototype.loadFailureCount = function (data) {
              });
     });
 }
+BugTable.prototype.loadQueueTime = function (data, flag) {
+    let bugzilla_origin = this.triage.settings.get("testing-only-bugzilla-origin");
+    let apiKey = this.triage.settings.get("bz-apikey");
+    let query = $.extend({}, this.query);
+    if (apiKey) {
+        $.extend(query, {"api_key": apiKey});
+    }
+    let total = data["bugs"].length;
+    let count = 0;
+    let callback = $.proxy(this, "display");
+    $.each(data["bugs"], function (i, rowData) {
+        let id = rowData["id"];
+        let url = `${bugzilla_origin}/rest/bug/${id}/history`;
+        $.getJSON({url: url,
+                   type: "GET",
+                   data: query,})
+             .done(function (result) {
+                count++;
+                let history = result["bugs"][0]["history"];
+                function findNeckoPriorityQueueAdditionTime(entries) {
+                    for (let i = entries.length - 1; i >= 0; i--) {
+                        const entry = entries[i];
+                        for (const change of entry.changes) {
+                            if (change.added.includes(flag) && change.field_name === "whiteboard") {
+                                return entry.when;
+                            }
+                        }
+                    }
+                    return null; // Return null if not found
+                }
+                let timeAdded = findNeckoPriorityQueueAdditionTime(history);
+                if (timeAdded) {
+                    rowData[flag] = timeAdded;
+                } else {
+                    rowData[flag] = "unknown";
+                }
+             })
+             .fail(function() {
+                 count++;
+             })
+             .always(function () {
+                 // We've queried all failure count for all bugs.
+                 if (count == total) {
+                     callback(data);
+                 }
+             });
+    });
+}
 BugTable.prototype.load = function () {
     this.disableFunctionality();
 
@@ -253,6 +313,38 @@ BugTable.prototype.load = function () {
              .always($.proxy(this, "enableFunctionality"));
         return;
     }
+    // Define a mapping from column names to flags
+    const columnFlagMapping = {
+        "priority_queue_time": "necko-priority-queue",
+        "priority_next_queue_time": "necko-priority-next",
+        "priority_review_queue_time": "necko-priority-review",
+        "monitor_queue_time": "necko-monitor"
+    };
+
+    // Find the first matching column and get its corresponding flag
+    let flag = null;
+    for (const [column, columnFlag] of Object.entries(columnFlagMapping)) {
+        if (this.extraColumns.indexOf(column) !== -1) {
+            flag = columnFlag;
+            break; // Exit the loop once a match is found
+        }
+    }
+
+    if (flag !== null) {
+        $.getJSON({
+            url: this.triage.settings.get("testing-only-bugzilla-origin") + "/rest/bug",
+            data: query,
+            type: "GET",
+            traditional: true
+        })
+        .done($.proxy(function(data) {
+            this.loadQueueTime(data, flag); // Use the dynamically set flag
+        }, this))
+        .fail($.proxy(this, "xhrError"))
+        .always($.proxy(this, "enableFunctionality"));
+        return;
+    }
+
     $.getJSON({url: this.triage.settings.get("testing-only-bugzilla-origin") + "/rest/bug",
                data: query,
                type: "GET",
