@@ -157,6 +157,12 @@ function GetAssignee(datarow) {
     return assignee.split('@')[0];
 }
 
+function SortAssignee(a, b) {
+    console.log(a);
+    console.log(GetAssignee(a).localeCompare(GetAssignee(b)));
+    return GetAssignee(a).localeCompare(GetAssignee(b));
+}
+
 function GetPriority(datarow) {
     return datarow["priority"] || "";
 }

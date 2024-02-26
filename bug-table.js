@@ -39,6 +39,7 @@ BugTable.sorters = {
     "priority_next_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-next"),
     "priority_review_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-review"),
     "monitor_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-monitor"),
+    "owner": SortAssignee,
 };
 BugTable.prototype.id = "";
 BugTable.prototype.title = "";
