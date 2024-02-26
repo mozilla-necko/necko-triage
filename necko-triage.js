@@ -359,7 +359,7 @@ NeckoTriage.prototype.add_more_tables = function () {
             "keywords_type": "allwords"
         },
         "default_sort": "id",
-        "extra_columns": ["alias"],
+        "extra_columns": ["alias", "owner"],
     }
 };
 NeckoTriage.prototype.init = function () {

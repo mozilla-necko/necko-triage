@@ -10,6 +10,7 @@ BugTable = function (id, config, triage) {
 BugTable.formatters = {
     "ni-date": GetNI,
     "alias": GetAlias,
+    "owner": GetAssignee,
     "priority": GetPriority,
     "failure_count": GetFailureCount,
     "priority_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-queue"),
@@ -20,6 +21,7 @@ BugTable.formatters = {
 BugTable.columnTitles = {
     "ni-date": "Last ni?",
     "alias": "Alias",
+    "owner": "Owner",
     "priority": "Priority",
     "failure_count": "Failure Count",
     "priority_queue_time": "Priority Queue Time",

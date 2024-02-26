@@ -149,6 +149,14 @@ function GetAlias(datarow) {
     return datarow["alias"] || "";
 }
 
+function GetAssignee(datarow) {
+    let assignee = datarow["assigned_to"] || "";
+    if (assignee === "nobody@mozilla.org" || assignee === "general@network.bugs") {
+        assignee = "";
+    }
+    return assignee.split('@')[0];
+}
+
 function GetPriority(datarow) {
     return datarow["priority"] || "";
 }
