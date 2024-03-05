@@ -196,9 +196,9 @@ NeckoTriage.prototype.availableTables = {
         "extra_columns": ["priority", "priority_queue_time", "owner"],
         "default_sort": "priority"
     },
-    "next-priority": {
+    "priority-next": {
         "is_user": false,
-        "title": "Necko Next Priority",
+        "title": "Necko Priority Next",
         "query": {
             "product": "Core",
             "query_format": "advanced",
