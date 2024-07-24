@@ -167,6 +167,14 @@ function GetPriority(datarow) {
     return datarow["priority"] || "";
 }
 
+function GetPoints(datarow) {
+    return datarow["cf_fx_points"] || "";
+}
+
+function GetRank(datarow) {
+    return datarow["cf_rank"] || "--";
+}
+
 function GetFailureCount(datarow) {
     return datarow["failure_count"] || 0;
 }
@@ -175,9 +183,31 @@ function SortFailures(a, b) {
     return b["failure_count"] - a["failure_count"];
 }
 
+function SortByPoints(a, b) {
+    let pointA = a["cf_fx_points"] === "--" ? 1 : parseInt(a["cf_fx_points"]);
+    let pointB = b["cf_fx_points"] === "--" ? 1 : parseInt(b["cf_fx_points"]);
+    return pointA > pointB;
+}
+
+function SortByRank(a, b) {
+    let rankA = a["cf_rank"] === "--" || a["cf_rank"] === null ? 10 : parseInt(a["cf_rank"]);
+    let rankB = b["cf_rank"] === "--" || b["cf_rank"] === null ? 10 : parseInt(b["cf_rank"]);
+    if (rankA === rankB) {
+        return SortByPoints(a, b);
+    }
+    return rankA > rankB;
+}
+
 function SortPriority(a, b) {
     let priorityA = a["priority"] === "--" ? 1 : parseInt(a["priority"].slice(1));
     let priorityB = b["priority"] === "--" ? 1 : parseInt(b["priority"].slice(1));
+    if (priorityA === priorityB) {
+        // if we have same priority, sort by rank
+        // During triage rank will be decided on based on its importance
+        // If we have same rank then we sort them by points
+        // Lesser points means easier to fix (in theory, if we're lucky and the stars align)
+        return SortByRank(a, b);
+    }
     return priorityA > priorityB;
 }
 

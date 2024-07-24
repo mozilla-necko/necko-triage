@@ -12,6 +12,8 @@ BugTable.formatters = {
     "alias": GetAlias,
     "owner": GetAssignee,
     "priority": GetPriority,
+    "points": GetPoints,
+    "rank": GetRank,
     "failure_count": GetFailureCount,
     "priority_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-queue"),
     "priority_next_queue_time": (rowData) => GetQueueTimeWithFlag(rowData, "necko-priority-next"),
@@ -23,9 +25,11 @@ BugTable.columnTitles = {
     "alias": "Alias",
     "owner": "Owner",
     "priority": "Priority",
+    "rank": "Rank",
+    "points": "Points",
     "failure_count": "Failure Count",
     "priority_queue_time": "Priority Queue Time",
-    "priority_next_queue_time": "Priority Next Queue Time",
+    "priority_next_queue_time": "Queue Time",
     "priority_review_queue_time": "Priority Review Queue Time",
     "monitor_queue_time": "Monitor Queue Time",
 };
@@ -35,6 +39,8 @@ BugTable.sorters = {
     "id": SortByID,
     "failure_count": SortFailures,
     "priority": SortPriority,
+    "points": SortPriority, // points are need to be sorted within the same priority
+    "rank": SortPriority, // rank needs to be sorted within the same priority
     "priority_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-queue"),
     "priority_next_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-next"),
     "priority_review_queue_time": (a, b) => SortByQueueTimeWithFlag(a, b, "necko-priority-review"),

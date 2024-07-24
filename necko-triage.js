@@ -208,7 +208,7 @@ NeckoTriage.prototype.availableTables = {
             "o1": "substring",
             "v1": "[necko-priority-next]",
         },
-        "extra_columns": ["priority", "priority_next_queue_time"],
+        "extra_columns": ["priority", "rank", "points", "priority_next_queue_time"],
         "default_sort": "priority"
     },
     "priority-new": {
