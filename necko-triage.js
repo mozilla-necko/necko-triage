@@ -185,9 +185,7 @@ NeckoTriage.prototype.availableTables = {
         "is_user": false,
         "title": "Necko Priority Queue",
         "query": {
-            "product": "Core",
             "query_format": "advanced",
-            "component": NeckoTriage.prototype.components,
             "resolution": "---",
             "f1": "status_whiteboard",
             "o1": "substring",
