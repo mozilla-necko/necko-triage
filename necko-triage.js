@@ -16,6 +16,21 @@ NeckoTriage.prototype.components = [
     "DOM: Networking"
 ];
 NeckoTriage.prototype.availableTables = {
+    "webcompat": {
+        "is_user": false,
+        "title": "Webcompat needs diagnosis",
+        "query": {
+            "resolution": "---",
+            "f1": "cf_user_story",
+            "o1": "substring",
+            "v1": "diagnosis-team:networking",
+            "f2": "keywords",
+            "o2": "anywordssubstr",
+            "v2": "webcompat:needs-diagnosis",
+        },
+        "extra_columns": ["priority"],
+        "default_sort": "priority"
+    },
     "untriaged": {
         "is_user": false,
         "title": "Untriaged bugs",
