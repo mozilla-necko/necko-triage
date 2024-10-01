@@ -64,6 +64,10 @@ Mark as triaged
 - Set [Priority](https://wiki.mozilla.org/BMO/UserGuide/BugFields#priority) (see below for more)
 - Set [Severity](https://wiki.mozilla.org/BMO/UserGuide/BugFields#bug_severity)
 
+Set Rank/Points
+- Rank is an estimate on the impact of a bug, it notes the relative importance of P2/S3's against each other. Where 0 is the highest impact.
+- Points is an estimate of the complexity/difficulty of fixing a bug, where 1 is low complexity/easy.
+
 ## Notes on Priorities
 
 Priorities
