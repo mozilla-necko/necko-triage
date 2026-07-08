@@ -6,7 +6,6 @@ NeckoTriage.prototype.useTabs = false;
 NeckoTriage.prototype.components = [
     "Networking",
     "Networking: Cache",
-    "Networking: Cookies",
     "Networking: DNS",
     "Networking: File",
     "Networking: HTTP",
